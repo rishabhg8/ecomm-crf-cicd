@@ -52,6 +52,19 @@ The total must equal the sum of each item's quantity multiplied by its unit pric
 
 An example request for the deployed service is in [test_curl_event.txt](test_curl_event.txt). It uses `gcloud auth print-identity-token` to authenticate.
 
+## Cloud Run execution logs
+
+The Cloud Run logs below show the service receiving the `POST` request and successfully processing order `ORD-20250426-1001`.
+
+![Cloud Run logs showing a successfully processed order](success_logs.png)
+
+The relevant log messages are:
+
+```text
+INFO order_service: Received POST /
+INFO order_service: Order ORD-20250426-1001 processed successfully
+```
+
 ## Example success response
 
 The processing ID and timestamp are generated for each request.
@@ -75,6 +88,17 @@ The processing ID and timestamp are generated for each request.
   "message": "Order received and stored."
 }
 ```
+
+## Latest successful Cloud Build
+
+The latest successful build shown here was triggered from the `dev` branch at commit `46d5482`. Cloud Build used Buildpacks to create the container image, pushed it to Artifact Registry, and deployed it to Cloud Run.
+
+- **Build ID:** `886ddce1-0fba-49b4-8c21-c63ae9295731`
+- **Status:** `SUCCESS`
+- **Image:** `europe-west1-docker.pkg.dev/data-agent-kit-506906/cloud-run-source-deploy/ecomm-crf-cicd/ecomm-crf-cicd:46d5482ff3a09ec1cc1970b392d135bd4d80c915`
+- **Image digest:** `sha256:1351542fcf02441dee6395580e3b5e9c98b3ddce61882cbee53494413e249afd`
+
+![Successful Cloud Build showing build, push, and deploy steps](success_build.png)
 
 ## CI/CD
 
